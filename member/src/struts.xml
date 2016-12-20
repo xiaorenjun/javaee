@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="member" extends="struts-default">
+		<!-- class的值来自Spring的配置文件的bean id -->
+		<action name="memberAction_*" class="com.member.action.MemberAction" method="{1}">
+			<result name="add" type="redirectAction">memberAction_list</result>
+			<result name="list">memberlist.jsp</result>
+			<result name="modify" type="redirectAction">memberAction_list</result>
+			<result name="find">modify.jsp</result>
+			<result name="remove" type="redirectAction">memberAction_list</result>
+		</action>
+	</package>
+</struts>    

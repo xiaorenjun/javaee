@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.member.dao.MemberMapper">
+	<resultMap type="com.member.pojo.Member" id="member-result">
+		<id property="mid" column="M_ID" />
+		<result property="mname" column="M_NAME"/>
+		<result property="mphone" column="M_PHONE"/>
+		<result property="mlevel" column="M_LEVEL"/>
+		<result property="mintime" column="M_IN_TIME"/>
+		<result property="mcardno" column="M_CARD_NO"/>
+	</resultMap>
+	
+	<select id="find" resultMap="member-result">
+		select MID,MNAME,MPHONE,MLEVEL,MINTIME,MCARDNO from MEMBER
+	<where>
+		1=1
+		<if test="mname != null and mname != ''">
+			and MNAME like CONCAT(CONCAT('%',#{mname}),'%')
+		</if>
+		<if test="mcardno != null and mcardno != ''">
+			and MCARDNO like CONCAT(CONCAT('%',#{mcardno}),'%')
+		</if>
+	</where>	
+  </select>
+
+</mapper>
