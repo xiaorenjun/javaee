@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.messageboard.dao.MessageBoardMapper">
+	<resultMap type="com.messageboard.pojo.Messageboard" id="mb-result">
+		<id property="mid" column="MID"></id>
+		<result property="mbtype" column="MBTYPE"/>
+		<result property="mbclass" column="MBCLASS"/>
+		<result property="mbarea" column="MBAREA"/>
+		<result property="message" column="MESSAGE"/>
+		<result property="rtype" column="RTYPE"/>
+		<result property="mname" column="MNAME"/>
+	</resultMap>
+</mapper>
