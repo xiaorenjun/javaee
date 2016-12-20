@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newer.dao.StaffMapper">
+	<resultMap type="com.newer.pojo.Staff" id="staff-result">
+		<id property="id" column="ID"></id>
+		<result property="ename" column="ENAME"/>
+		<result property="job" column="JOB"/>
+		<result property="dname" column="DNAME"/>
+		<result property="loc" column="LOC"/>
+		<result property="sal" column="SAL"/>
+	</resultMap>
+	
+	<sql id="pageSQLHead">
+		select ename,job,dname,loc,sal from (select row_number() over(
+	</sql>
+	
+	<sql id="orderBy">
+		<if test="sort != null and order !=null">
+			order by
+			<choose>
+				<when test="sort=='sal'">SAL</when>
+				<otherwise>ID</otherwise>
+			</choose>
+			<if test="order=='asc'">ASC</if>
+			<if test="order=='desc'">DESC</if>
+		</if>
+	</sql>
+	
+	<!--  <sql id="whereCase">
+		<where>
+			1=1
+		</where>
+	</sql>-->
+	
+	<sql id="pageSQLFoot">
+		 <![CDATA[ ) where rn > #{pageno} and rn <= #{pagesize} ]]>
+	</sql>
+	
+	<select id="findPager" resultMap="staff-result">
+		<include refid="pageSQLHead"/>
+		<include refid="orderBy"/>
+		) rn,e.*,d.* from emp e,dept d where e.deptno=d.deptno
+		<include refid="pageSQLFoot"/>
+	</select>
+	
+	<select id="findTotal" resultType="int">
+		select count(ename) from EMP
+	</select>
+
+</mapper>
